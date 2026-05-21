@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Work Portfolio | Prem Singh - Selected Projects</title>
+  <meta name="description" content="Explore Prem Singh's creative works across graphic design posters, hand drawings, custom logos, motion graphics, visual effects (VFX), and cinematic screenplays.">
+  
+  <link rel="stylesheet" href="global.css">
+  <style>
+    /* Unique Work Page Layout Styles */
+    .work-section {
+      padding: 2rem 0;
+    }
+
+    .work-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .work-header h1 {
+      font-size: clamp(4rem, 12vw, 9.5rem);
+      line-height: 0.8;
+      color: var(--text-black);
+    }
+
+    /* Asymmetrical Physical Navigation Tabs */
+    .tabs-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .work-tab {
+      background: var(--bg-paper-light);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 0.7rem 1.6rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition-smooth);
+      box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.03);
+      transform: rotate(calc(-1deg + (Math.random() * 2deg))); /* Slight physical tilt */
+    }
+
+    /* Assign randomized organic tilts for the tabs */
+    .work-tab:nth-child(odd) { transform: rotate(-1.5deg); }
+    .work-tab:nth-child(even) { transform: rotate(1.2deg); }
+    .work-tab:nth-child(3n) { transform: rotate(-0.8deg); }
+    .work-tab:nth-child(4n) { transform: rotate(2deg); }
+
+    .work-tab:hover {
+      background-color: var(--electric-blue);
+      color: var(--bg-paper-light);
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 5px 8px 15px rgba(0,0,0,0.06);
+    }
+
+    .work-tab.active-tab {
+      background-color: var(--text-black);
+      color: var(--bg-paper-light);
+      border-color: var(--text-black);
+      transform: scale(1.05) translateY(-3px) skewX(-2deg);
+      box-shadow: 4px 6px 0 var(--hot-pink);
+    }
+
+    /* Project Grid Layout - Dynamic & Asymmetrical */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 3.5rem;
+      transition: opacity 0.3s ease;
+      min-height: 400px;
+    }
+
+    /* Artistic Project Card */
+    .project-card {
+      background-color: var(--bg-paper-light);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.04);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .project-card:nth-child(even) {
+      transform: rotate(0.8deg) translateY(10px);
+    }
+    .project-card:nth-child(odd) {
+      transform: rotate(-0.5deg);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px) rotate(-1deg) scale(1.01);
+      box-shadow: 15px 25px 40px rgba(0, 0, 0, 0.09);
+      border-color: var(--electric-blue);
+    }
+
+    /* Tape overlay on cards */
+    .card-tape {
+      position: absolute;
+      top: -12px;
+      left: calc(50% - 40px);
+      width: 80px;
+      height: 22px;
+      background: var(--tape-color);
+      transform: rotate(-1deg);
+      opacity: 0.8;
+      z-index: 5;
+    }
+
+    .project-thumbnail {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background-color: var(--text-black);
+      border: 1px solid rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    .project-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-card:hover .project-thumbnail img {
+      transform: scale(1.06);
+    }
+
+    /* Video Play Icon Overlay */
+    .video-play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15,15,17,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+
+    .project-card:hover .video-play-overlay {
+      background-color: rgba(15,15,17,0.15);
+    }
+
+    .play-btn-circle {
+      width: 60px;
+      height: 60px;
+      background-color: var(--hot-pink);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .play-btn-circle svg {
+      width: 25px;
+      height: 25px;
+      fill: var(--bg-paper-light);
+      margin-left: 4px; /* Offset to center triangle */
+    }
+
+    .project-card:hover .play-btn-circle {
+      transform: scale(1.15) rotate(-10deg);
+      background-color: var(--electric-blue);
+      box-shadow: 0 4px 15px rgba(13, 71, 255, 0.4);
+    }
+
+    .project-info {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .project-category-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--hot-pink);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-title {
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      color: var(--text-black);
+    }
+
+    .project-description {
+      font-size: 0.95rem;
+      color: rgba(15,15,17,0.7);
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    /* Script PDF Card Styling */
+    .script-pdf-card {
+      border: 1px dashed var(--text-black);
+      background-color: var(--bg-paper-light);
+    }
+
+    .pdf-icon-indicator {
+      width: 50px;
+      height: 50px;
+      background: var(--text-black);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .pdf-icon-indicator span {
+      color: var(--hot-pink);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .script-download-btn {
+      margin-top: auto;
+      text-decoration: none;
+      background-color: var(--text-black);
+      color: var(--bg-paper-light);
+      padding: 0.6rem 1.2rem;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: var(--transition-fast);
+      display: inline-block;
+      border: 1px solid var(--text-black);
+    }
+
+    .script-download-btn:hover {
+      background-color: var(--electric-blue);
+      border-color: var(--electric-blue);
+      transform: skewX(-5deg);
+    }
+
+    /* Loading/Entrance states */
+    .fade-out {
+      opacity: 0;
+    }
+    
+    .fade-in {
+      opacity: 1;
+    }
+
+    /* Responsive grid gaps */
+    @media (max-width: 768px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .work-tab {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Moving Film Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Seamless Page Transition Screen -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="header-nav">
+    <a href="index.html" class="branding-logo">
+      <span>PREM</span>
+      <span>SINGH.</span>
+    </a>
+    
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html" class="active-link">Work</a></li>
+        <li><a href="scripts.html">Scripts</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Mobile Hamburger Menu Button -->
+    <button class="hamburger" aria-label="Toggle Navigation Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Overlay Drawer -->
+  <div class="mobile-nav-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="work.html" class="active-link">Work</a></li>
+      <li><a href="scripts.html">Scripts</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Work Gallery Section -->
+  <main class="main-wrapper work-section">
+    
+    <!-- Header -->
+    <div class="work-header">
+      <div class="handwritten-annotation" style="color: var(--hot-pink); margin-bottom: 0.5rem;">"explore creative disciplines..."</div>
+      <h1>SELECTED <br><span class="highlight-blue brush-stroke-under">WORKS</span></h1>
+    </div>
+
+    <!-- Dynamic Category Filter Ribbon -->
+    <div class="tabs-container">
+      <div class="work-tab active-tab" data-filter="all">All Projects</div>
+      <div class="work-tab" data-filter="graphicDesign">Graphic Design</div>
+      <div class="work-tab" data-filter="motionGraphics">Motion Graphics</div>
+      <div class="work-tab" data-filter="vfxCompositing">VFX & Compositing</div>
+      <div class="work-tab" data-filter="digitalFilmmaking">Digital Filmmaking</div>
+      <div class="work-tab" data-filter="videoEditing">Audio & Video Editing</div>
+      <div class="work-tab" data-filter="drawings">Drawings</div>
+      <div class="work-tab" data-filter="landscapeIllustration">Landscape Illustration</div>
+      <div class="work-tab" data-filter="logos">Logos</div>
+      <div class="work-tab" data-filter="scripts">Scripts</div>
+    </div>
+
+    <!-- Staggered Project Grid -->
+    <section class="project-grid" id="projectGrid">
+      <!-- Injected Dynamically by work-engine -->
+    </section>
+
+  </main>
+
+  <script src="assets-data.js"></script>
+  <script src="global.js"></script>
+  <script>
+    // Local Work Grid Filter Engine
+    document.addEventListener("DOMContentLoaded", () => {
+      const grid = document.getElementById("projectGrid");
+      const tabs = document.querySelectorAll(".work-tab");
+      
+      // Initial render (All assets)
+      renderCategory("all");
+
+      // Bind click events on filter tabs
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          if (tab.classList.contains("active-tab")) return;
+
+          // Toggle tab active styles
+          tabs.forEach(t => t.classList.remove("active-tab"));
+          tab.classList.add("active-tab");
+
+          // Play dynamic exit fade transition
+          grid.classList.add("fade-out");
+          
+          setTimeout(() => {
+            renderCategory(tab.dataset.filter);
+            grid.classList.remove("fade-out");
+          }, 300);
+        });
+      });
+
+      // Filter and render helper
+      function renderCategory(filter) {
+        grid.innerHTML = "";
+        let items = [];
+
+        // Aggregate items depending on choice
+        if (filter === "all") {
+          // Gather all items from all categories
+          items = [
+            ...PORTFOLIO_ASSETS.graphicDesign,
+            ...PORTFOLIO_ASSETS.logos,
+            ...PORTFOLIO_ASSETS.drawings,
+            ...PORTFOLIO_ASSETS.landscapeIllustration,
+            ...PORTFOLIO_ASSETS.motionGraphics,
+            ...PORTFOLIO_ASSETS.vfxCompositing,
+            ...PORTFOLIO_ASSETS.videoEditing,
+            ...PORTFOLIO_ASSETS.digitalFilmmaking,
+            ...PORTFOLIO_ASSETS.scripts
+          ];
+        } else {
+          items = PORTFOLIO_ASSETS[filter] || [];
+        }
+
+        // Render card markup
+        items.forEach(item => {
+          const card = document.createElement("div");
+          
+          // Script styling differences
+          if (item.filePath && item.filePath.endsWith(".pdf")) {
+            card.className = "project-card script-pdf-card";
+            card.innerHTML = `
+              <div class="card-tape"></div>
+              <div class="pdf-icon-indicator"><span>PDF</span></div>
+              <div class="project-info">
+                <span class="project-category-badge">${item.category} • ${item.pageCount} Pages</span>
+                <h3 class="project-title">${item.title}</h3>
+                <p class="project-description" style="margin-bottom: 1.5rem;">${item.description}</p>
+              </div>
+              <a href="${item.filePath}" target="_blank" class="script-download-btn">OPEN SCREENPLAY</a>
+            `;
+            // Clicks on script card directly open the script unless clicking text/button
+            card.addEventListener("click", (e) => {
+              if (e.target.tagName !== "A") {
+                window.open(item.filePath, "_blank");
+              }
+            });
+          } 
+          // Video items styling
+          else if (item.youtubeUrl) {
+            card.className = "project-card";
+            const thumbUrl = `https://img.youtube.com/vi/${item.embedId}/maxresdefault.jpg`;
+            
+            card.innerHTML = `
+              <div class="card-tape"></div>
+              <div class="project-thumbnail">
+                <img src="${thumbUrl}" alt="${item.title}" onerror="this.src='https://img.youtube.com/vi/${item.embedId}/0.jpg'">
+                <div class="video-play-overlay">
+                  <div class="play-btn-circle">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="project-info">
+                <span class="project-category-badge">${item.category}</span>
+                <h3 class="project-title">${item.title}</h3>
+                <p class="project-description">${item.description}</p>
+              </div>
+            `;
+            
+            // Link to global Lightbox
+            card.addEventListener("click", () => {
+              window.openLightboxModal("video", item.embedId, item.title, item.description);
+            });
+          } 
+          // Image items (Posters, logos, drawings, landscape)
+          else {
+            card.className = "project-card";
+            card.innerHTML = `
+              <div class="card-tape"></div>
+              <div class="project-thumbnail">
+                <img src="${item.filePath}" alt="${item.title}">
+              </div>
+              <div class="project-info">
+                <span class="project-category-badge">${item.category}</span>
+                <h3 class="project-title">${item.title}</h3>
+                <p class="project-description">${item.description}</p>
+              </div>
+            `;
+            
+            // Link to global Lightbox
+            card.addEventListener("click", () => {
+              window.openLightboxModal("image", item.filePath, item.title, item.description);
+            });
+          }
+
+          grid.appendChild(card);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

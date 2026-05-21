@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>About | Prem Singh - Creative Visual Storyteller</title>
+  <meta name="description" content="Learn more about Prem Singh - student of B.Sc. in Animation & VFX at AAFT Noida, freelance designer, and visual storyteller experimenting with bold graphic compositions.">
+  
+  <link rel="stylesheet" href="global.css">
+  <style>
+    /* Unique About Page Layout Styles matching the reference exactly */
+    .about-section {
+      padding: 3rem 0;
+      position: relative;
+    }
+
+    .about-collage-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-left-rail {
+      position: absolute;
+      left: -80px;
+      top: 15%;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      z-index: 1;
+    }
+
+    /* Stenciled ABOUT heading */
+    .about-header-stencil {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.1em;
+      margin-bottom: 2rem;
+      width: 100%;
+      position: relative;
+    }
+
+    .about-header-stencil::after {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 100px;
+      width: 160px;
+      height: 40px;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10 Q 50 30, 90 10 T 150 20' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M20 20 Q 70 5, 120 25 T 140 10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") no-repeat;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* Left panel styling */
+    .about-content-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+      position: relative;
+    }
+
+    /* Cursive arrow pointing down-right ↴ */
+    .curving-arrow-svg {
+      width: 44px;
+      height: 44px;
+      fill: none;
+      stroke: var(--text-black);
+      stroke-width: 3;
+      stroke-linecap: round;
+      margin-left: 2rem;
+      margin-top: -1rem;
+      transform: rotate(-10deg);
+    }
+
+    /* Black paint brush text banner */
+    .about-brush-text-container {
+      background-color: var(--text-black);
+      color: var(--bg-paper-light);
+      padding: 1.2rem 2.2rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transform: rotate(-1deg);
+      display: inline-block;
+      align-self: flex-start;
+      clip-path: polygon(
+        0% 0%, 100% 2%, 98% 50%, 100% 98%, 0% 100%, 2% 50%
+      );
+    }
+
+    .about-brush-text-container span.pink-text {
+      color: var(--hot-pink);
+    }
+
+    .about-brush-text-container span.blue-text {
+      color: var(--electric-blue);
+    }
+
+    /* Typewriter bio elements style */
+    .about-bio-courier {
+      font-family: var(--font-typewriter);
+      font-size: 1.15rem;
+      line-height: 1.45;
+      font-weight: bold;
+      color: var(--text-black);
+    }
+
+    .about-bio-courier p {
+      margin-bottom: 1.2rem;
+    }
+
+    .about-bio-courier span.pink {
+      color: var(--hot-pink);
+    }
+
+    .about-bio-courier span.blue {
+      color: var(--electric-blue);
+    }
+
+    /* Spiral portrait card right column */
+    .about-right-collage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 3rem;
+    }
+
+    /* Collage background layers */
+    .about-collage-bg-dots {
+      position: absolute;
+      bottom: -30px;
+      left: -20px;
+      width: 160px;
+      height: 160px;
+      background-image: radial-gradient(var(--text-black) 2px, transparent 0);
+      background-size: 12px 12px;
+      opacity: 0.55;
+      z-index: 1;
+    }
+
+    .about-collage-bg-grid {
+      position: absolute;
+      top: 0px;
+      right: -10px;
+      width: 220px;
+      height: 220px;
+      border: 1px solid rgba(15, 15, 17, 0.08);
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(15, 15, 17, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 15, 17, 0.06) 1px, transparent 1px);
+      z-index: 1;
+    }
+
+    /* Spiral Sheet card frame */
+    .about-photo-sheet {
+      position: relative;
+      background: var(--bg-paper-light);
+      padding: 1.8rem;
+      padding-bottom: 2.5rem;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 12px 20px 45px rgba(0, 0, 0, 0.12);
+      transform: rotate(3deg);
+      transition: var(--transition-smooth);
+      max-width: 380px;
+      width: 100%;
+      z-index: 3;
+      /* Notebook spiral left holes cut */
+      clip-path: polygon(
+        6% 0%, 100% 0%, 100% 100%, 6% 100%,
+        6% 92%, 2% 92%, 2% 88%, 6% 88%,
+        6% 82%, 2% 82%, 2% 78%, 6% 78%,
+        6% 72%, 2% 72%, 2% 68%, 6% 68%,
+        6% 62%, 2% 62%, 2% 58%, 6% 58%,
+        6% 52%, 2% 52%, 2% 48%, 6% 48%,
+        6% 42%, 2% 42%, 2% 38%, 6% 38%,
+        6% 32%, 2% 32%, 2% 28%, 6% 28%,
+        6% 22%, 2% 22%, 2% 18%, 6% 18%,
+        6% 12%, 2% 12%, 2% 8%, 6% 8%
+      );
+    }
+
+    .about-photo-sheet:hover {
+      transform: rotate(-1deg) translateY(-8px);
+      box-shadow: 15px 30px 50px rgba(0, 0, 0, 0.16);
+    }
+
+    .spiral-star-indicator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .spiral-star-circle {
+      width: 48px;
+      height: 48px;
+      background-color: var(--text-black);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spiral-star-circle svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--bg-paper-light);
+    }
+
+    .spiral-quote-content {
+      font-family: var(--font-typewriter);
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: var(--text-black);
+      line-height: 1.35;
+      text-transform: uppercase;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .spiral-quote-content span.pink { color: var(--hot-pink); }
+    .spiral-quote-content span.blue { color: var(--electric-blue); }
+
+    /* Torn brown paper block under note */
+    .brown-torn-kraft {
+      position: absolute;
+      bottom: -40px;
+      right: 40px;
+      width: 220px;
+      height: 100px;
+      background-color: #d1bda2;
+      z-index: 2;
+      transform: rotate(-8deg);
+      clip-path: polygon(
+        0% 0%, 30% 5%, 60% 1%, 90% 4%, 100% 0%,
+        98% 35%, 100% 70%, 97% 100%,
+        80% 98%, 50% 100%, 20% 97%, 0% 100%,
+        2% 70%, 1% 35%
+      );
+    }
+
+    /* Pinned black gaffer tape */
+    .tape-top-right-black {
+      position: absolute;
+      top: -15px;
+      right: 30px;
+      width: 100px;
+      height: 28px;
+      background-color: rgba(15, 15, 17, 0.94);
+      transform: rotate(5deg);
+      z-index: 10;
+      clip-path: polygon(
+        0% 5%, 35% 12%, 70% 3%, 100% 8%,
+        98% 45%, 99% 95%,
+        65% 88%, 35% 96%, 0% 90%
+      );
+    }
+
+    /* Five column section */
+    .about-five-columns-container {
+      margin-top: 5rem;
+      width: 100%;
+    }
+
+    .five-col-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-top: 3.5px solid var(--text-black);
+      border-bottom: 3.5px solid var(--text-black);
+      padding: 3.5rem 0;
+      width: 100%;
+      position: relative;
+    }
+
+    .five-col-block {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1.5rem;
+      border-right: 2px solid rgba(15, 15, 17, 0.15);
+    }
+
+    .five-col-block:first-child {
+      padding-left: 0;
+    }
+
+    .five-col-block:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .five-col-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .five-col-heading svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--text-black);
+    }
+
+    .five-col-heading span {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .five-col-list {
+      font-family: var(--font-typewriter);
+      font-size: 1.02rem;
+      color: rgba(15, 15, 17, 0.85);
+      line-height: 1.45;
+      font-weight: bold;
+      list-style: none;
+    }
+
+    .five-col-list li {
+      margin-bottom: 0.6rem;
+    }
+
+    .five-col-list span.pink {
+      color: var(--hot-pink);
+    }
+
+    /* Footer quotes band styling */
+    .about-editorial-footer-bar {
+      margin-top: 5rem;
+      width: 100%;
+      background-color: var(--text-black);
+      color: var(--bg-paper-light);
+      position: relative;
+      z-index: 5;
+      clip-path: polygon(
+        0% 12%, 20% 0%, 40% 15%, 60% 2%, 80% 18%, 100% 5%,
+        100% 100%, 0% 100%
+      );
+      padding: 3.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .about-footer-quote-text {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      flex-grow: 1;
+      text-align: center;
+      line-height: 1.4;
+      padding: 0 2rem;
+    }
+
+    .about-footer-quote-text span.pink { color: var(--hot-pink); }
+    .about-footer-quote-text span.blue { color: var(--electric-blue); text-decoration: underline; }
+
+    /* Quote icon red stamp */
+    .footer-quotes-stamp {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--hot-pink);
+      line-height: 0.1;
+      opacity: 0.95;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1100px) {
+      .five-col-row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem 0;
+      }
+      .five-col-block:nth-child(3) {
+        border-right: none;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .about-collage-grid {
+        grid-template-columns: 1fr;
+        gap: 5rem;
+      }
+      .about-left-rail {
+        display: none;
+      }
+      .about-right-collage {
+        order: -1; /* portrait sheet first on mobile */
+      }
+      .about-photo-sheet {
+        align-self: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .five-col-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .five-col-block:nth-child(even) {
+        border-right: none;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .five-col-row {
+        grid-template-columns: 1fr;
+        gap: 2.5rem 0;
+      }
+      .five-col-block {
+        border-right: none;
+        padding: 0;
+      }
+      .about-editorial-footer-bar {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        padding: 3rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Moving Film Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Seamless Page Transition Screen -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="header-nav">
+    <a href="index.html" class="branding-logo">
+      <span>PREM</span>
+      <span>SINGH.</span>
+    </a>
+    
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active-link">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="scripts.html">Scripts</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Mobile Hamburger Menu Button -->
+    <button class="hamburger" aria-label="Toggle Navigation Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Overlay Drawer -->
+  <div class="mobile-nav-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active-link">About</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="scripts.html">Scripts</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Section Wrapper -->
+  <main class="main-wrapper about-section">
+    
+    <!-- Left Rail with Plus tags -->
+    <div class="about-left-rail">
+      <div class="plus-stack-dots">
+        <span>+</span><span>+</span><span>+</span>
+        <span>+</span><span>+</span><span>+</span>
+        <span>+</span><span>+</span><span>+</span>
+        <span>+</span><span>+</span><span>+</span>
+        <span>+</span><span>+</span><span>+</span>
+      </div>
+    </div>
+
+    <div class="about-collage-grid">
+      
+      <!-- Left Column: Biography & Technical Grid -->
+      <div class="about-content-panel">
+        
+        <!-- Centerpiece title ABOUT stenciled -->
+        <div class="about-header-stencil">
+          <span class="giant-letter">A</span>
+          <span class="giant-letter letter-pink-rect" style="transform: skewX(-4deg); padding: 0 0.1em;">B</span>
+          <span class="giant-letter letter-blue-star-circle">
+            <svg class="star-overlay" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 0 L63 37 L100 50 L63 63 L50 100 L37 63 L0 50 L37 37 Z" />
+            </svg>
+            O
+          </span>
+          <span class="giant-letter">U</span>
+          <span class="giant-letter letter-blue-brush">T</span>
+        </div>
+
+        <svg class="curving-arrow-svg" viewBox="0 0 44 44">
+          <path d="M5 5 C 15 25, 25 35, 38 35 M30 25 l8 10 l-10 4" />
+        </svg>
+
+        <!-- Black paint brush text banner -->
+        <div class="about-brush-text-container">
+          DESIGNING WITH <span class="pink-text">PURPOSE.</span><br>
+          STORYTELLING WITH <span class="blue-text">IMPACT.</span>
+        </div>
+
+        <!-- Bio Text -->
+        <div class="about-bio-courier">
+          <p>
+            Hi, I’m Prem Singh – a <span class="pink">graphic designer</span> and <span class="blue">visual storyteller</span> passionate about creating designs that feel expressive, cinematic, and emotionally engaging.
+          </p>
+          <p>
+            Currently studying Animation & VFX at <span class="blue">AAFT Institute, Noida</span>, I explore different creative fields including poster design, illustration, motion graphics, video editing, and digital storytelling.
+          </p>
+          <p>
+            I enjoy experimenting with bold typography, layered compositions, and visual narratives that leave a <span class="pink">strong impression</span> and connect with people through <span style="text-decoration: underline;">creativity.</span>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Profile Picture Collage Frame -->
+      <div class="about-right-collage">
+        
+        <!-- Collage Layers behind -->
+        <div class="about-collage-bg-dots"></div>
+        <div class="about-collage-bg-grid"></div>
+        <div class="brown-torn-kraft"></div>
+        
+        <!-- Notebook Spiral Sheet -->
+        <div class="about-photo-sheet">
+          <div class="tape-top-right-black"></div>
+          
+          <div class="spiral-star-indicator">
+            <div class="spiral-star-circle">
+              <svg viewBox="0 0 100 100">
+                <path d="M50 0 L63 37 L100 50 L63 63 L50 100 L37 63 L0 50 L37 37 Z" />
+              </svg>
+            </div>
+          </div>
+          
+          <div class="profile-img-container" style="width: 100%; aspect-ratio: 1/1; overflow: hidden; margin-bottom: 1.5rem; border: 1px solid rgba(0,0,0,0.1); background-color: var(--text-black);">
+            <img src="./profile pic/WhatsApp Image 2026-05-17 at 10.19.59 PM.jpeg" alt="Prem Singh" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          
+          <div class="spiral-quote-content">
+            I create<br>
+            visuals that<br>
+            <span class="pink">connect,</span><br>
+            tell stories<br>
+            and leave a<br>
+            <span class="blue">lasting</span><br>
+            <span style="text-decoration: underline;">impression.</span>
+          </div>
+        </div>
+        
+        <!-- Cursive annotation under note -->
+        <div class="handwritten-annotation" style="margin-top: 3.5rem; font-size: 1.8rem; transform: rotate(3deg); color: var(--hot-pink);">
+          "always experimenting with frames..."
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Five Column Section -->
+    <div class="about-five-columns-container">
+      <div class="five-col-row">
+        
+        <!-- Column 1: Education -->
+        <div class="five-col-block">
+          <div class="five-col-heading">
+            <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z M5 13.18v4L12 21l7-3.82v-4L12 17L5 13.18z"/></svg>
+            <span>EDUCATION</span>
+          </div>
+          <ul class="five-col-list">
+            <li><span class="pink">AAFT Institute,</span></li>
+            <li>Noida</li>
+            <li>B.Sc. in Animation</li>
+            <li>& VFX</li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Focus -->
+        <div class="five-col-block">
+          <div class="five-col-heading">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-8c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3z"/></svg>
+            <span>FOCUS</span>
+          </div>
+          <ul class="five-col-list">
+            <li>Graphic Design</li>
+            <li>Motion Graphics</li>
+            <li>Visual Storytelling</li>
+            <li>Poster Design</li>
+            <li>Illustration</li>
+            <li>Creative Direction</li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Tools -->
+        <div class="five-col-block">
+          <div class="five-col-heading">
+            <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            <span>TOOLS</span>
+          </div>
+          <ul class="five-col-list">
+            <li>Ps Ai Id Ae Pr</li>
+            <li>Figma</li>
+            <li>Procreate</li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Experience -->
+        <div class="five-col-block">
+          <div class="five-col-heading">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+            <span>EXPERIENCE</span>
+          </div>
+          <ul class="five-col-list">
+            <li>Freelance Designer</li>
+            <li>5+ Projects</li>
+            <li>Client Worldwide</li>
+          </ul>
+        </div>
+
+        <!-- Column 5: Strengths -->
+        <div class="five-col-block">
+          <div class="five-col-heading">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+            <span>STRENGTHS</span>
+          </div>
+          <ul class="five-col-list">
+            <li>Creative Thinking</li>
+            <li>Attention to Detail</li>
+            <li>Storytelling</li>
+            <li>Adaptability</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Black Quotes Footer Band -->
+    <div class="about-editorial-footer-bar">
+      <span class="footer-quotes-stamp">“</span>
+      
+      <div class="about-footer-quote-text">
+        EVERY PROJECT IS AN OPPORTUNITY TO DESIGN SOMETHING THAT <span class="pink">CONNECTS</span> PEOPLE AND CREATES <span class="blue">IMPACT.</span>
+      </div>
+
+      <div class="plus-stack-dots" style="color: rgba(255,255,255,0.4);">
+        <span>+</span><span>+</span><span>+</span>
+        <span>+</span><span>+</span><span>+</span>
+        <span>+</span><span>+</span><span>+</span>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="assets-data.js"></script>
+  <script src="global.js"></script>
+</body>
+</html>

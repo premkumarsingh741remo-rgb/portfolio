@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Prem Singh | Graphic Designer & Visual Storyteller</title>
+  <meta name="description" content="Official portfolio of Prem Singh - Creative Graphic Designer & Visual Storyteller. Specializing in editorial poster design, visual narratives, and handcrafted collage aesthetics.">
+  
+  <link rel="stylesheet" href="global.css">
+  <style>
+    /* Unique Home Page Layout Styles matching the reference exactly */
+    .home-hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 120px);
+      padding: 3rem 0;
+      z-index: 10;
+    }
+
+    /* Outer Main Asymmetrical Collage Layout */
+    .home-collage-container {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      width: 100%;
+      max-width: 1280px;
+      gap: 3.5rem;
+      align-items: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Left Side: Plus tags stack & Collage strips */
+    .home-left-rail {
+      position: absolute;
+      left: -80px;
+      top: 10%;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      z-index: 2;
+    }
+
+    /* Giant centerpiece title PORT/FOLIO stacked two rows */
+    .giant-portfolio-title {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+      width: 100%;
+    }
+
+    .giant-title-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.1em;
+      width: 100%;
+    }
+
+    /* Left Content Info Panel */
+    .home-intro-panel {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .home-intro-panel p.courier-intro {
+      font-family: var(--font-typewriter);
+      font-size: 1.25rem;
+      color: var(--text-black);
+      line-height: 1.45;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    /* Custom highlight/underline in red for "impression." */
+    .highlight-red-scribble {
+      color: var(--hot-pink);
+      position: relative;
+      display: inline-block;
+    }
+
+    .highlight-red-scribble::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background-color: var(--hot-pink);
+      opacity: 0.85;
+      clip-path: polygon(
+        0% 50%, 15% 20%, 35% 80%, 55% 10%, 75% 90%, 90% 30%, 100% 60%,
+        100% 90%, 80% 95%, 60% 70%, 40% 99%, 20% 60%, 0% 90%
+      );
+    }
+
+    /* Horizontal line + Arrow layout */
+    .home-intro-footer {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .hero-arrow-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+
+    .hero-arrow-link:hover .arrow-stroke {
+      transform: translateX(8px);
+      stroke: var(--hot-pink);
+    }
+
+    .arrow-stroke {
+      width: 80px;
+      height: 24px;
+      fill: none;
+      stroke: var(--text-black);
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    /* Right Side: Heavy layered Quote Collage Board */
+    .home-right-collage {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 480px;
+    }
+
+    /* LAYER 1 (Bottom): Large Blue Circle with black wiggles */
+    .collage-blue-circle {
+      position: absolute;
+      bottom: -20px;
+      right: 20px;
+      width: clamp(200px, 24vw, 320px);
+      height: clamp(200px, 24vw, 320px);
+      background-color: var(--electric-blue);
+      border-radius: 50%;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .collage-blue-circle::after {
+      content: '';
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      border: 3px solid rgba(15, 15, 17, 0.45);
+      border-radius: 50%;
+      transform: rotate(-15deg);
+      clip-path: polygon(10% 10%, 90% 15%, 85% 90%, 5% 85%);
+    }
+
+    /* LAYER 2: Halftone Dot Grid background */
+    .collage-dots {
+      position: absolute;
+      bottom: 20px;
+      right: -20px;
+      width: 140px;
+      height: 140px;
+      background-image: radial-gradient(var(--text-black) 2.5px, transparent 0);
+      background-size: 14px 14px;
+      opacity: 0.75;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* LAYER 3: Wireframe Grid behind card */
+    .collage-line-grid {
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      width: 200px;
+      height: 200px;
+      border: 1px solid rgba(15, 15, 17, 0.12);
+      background-size: 25px 25px;
+      background-image: 
+        linear-gradient(to right, rgba(15, 15, 17, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 15, 17, 0.1) 1px, transparent 1px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* LAYER 4: Pink Torn Card */
+    .collage-board-pink {
+      position: absolute;
+      top: -30px;
+      right: -10px;
+      width: clamp(240px, 20vw, 300px);
+      height: clamp(280px, 22vw, 340px);
+      background-color: var(--hot-pink);
+      z-index: 2;
+      transform: rotate(10deg);
+      box-shadow: 5px 8px 25px rgba(0,0,0,0.08);
+      clip-path: polygon(
+        0% 0%, 15% 2%, 35% 0%, 55% 3%, 75% 0%, 95% 4%, 100% 0%,
+        98% 25%, 100% 50%, 97% 75%, 100% 100%,
+        80% 98%, 60% 100%, 40% 97%, 20% 99%, 0% 100%,
+        2% 75%, 0% 50%, 3% 25%
+      );
+    }
+
+    /* LAYER 5: Black Torn Card */
+    .collage-board-black {
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      width: clamp(250px, 20vw, 320px);
+      height: clamp(280px, 22vw, 340px);
+      background-color: var(--text-black);
+      z-index: 2;
+      transform: rotate(-8deg);
+      box-shadow: 8px 12px 30px rgba(0,0,0,0.15);
+      clip-path: polygon(
+        0% 5%, 20% 0%, 40% 4%, 60% 1%, 80% 6%, 100% 0%,
+        99% 30%, 98% 60%, 100% 90%, 97% 100%,
+        75% 98%, 50% 99%, 25% 97%, 0% 100%,
+        1% 70%, 3% 40%, 0% 10%
+      );
+    }
+
+    /* LAYER 6 (Top): Handcrafted Pinned Quote Card (Cream Paper) */
+    .home-quote-card {
+      position: relative;
+      background-color: var(--bg-paper-light);
+      padding: 3.5rem 2.8rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: 12px 18px 40px rgba(0, 0, 0, 0.12);
+      transform: rotate(3deg);
+      transition: var(--transition-smooth);
+      max-width: 380px;
+      width: 100%;
+      z-index: 3;
+      clip-path: polygon(
+        0% 2%, 20% 0%, 40% 3%, 60% 0%, 80% 2%, 100% 0%,
+        98.5% 20%, 99.2% 40%, 98% 60%, 99% 80%, 98.2% 100%,
+        80% 98.5%, 60% 99.2%, 40% 98%, 20% 99.5%, 0% 100%,
+        1.2% 80%, 0.8% 60%, 1.5% 40%, 0.5% 20%
+      );
+    }
+
+    .home-quote-card:hover {
+      transform: rotate(-1deg) translateY(-8px);
+      box-shadow: 18px 28px 50px rgba(0, 0, 0, 0.16);
+    }
+
+    .quote-content {
+      font-family: var(--font-typewriter);
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--text-black);
+      line-height: 1.35;
+      text-transform: uppercase;
+      position: relative;
+      border-bottom: 2.5px solid var(--text-black);
+      padding-bottom: 1.5rem;
+    }
+
+    .quote-content span.pink-text {
+      color: var(--hot-pink);
+    }
+
+    .quote-content span.blue-text {
+      color: var(--electric-blue);
+    }
+
+    /* Decorative Gaffer Tape */
+    .tape-top-center-black {
+      position: absolute;
+      top: -15px;
+      left: calc(50% - 45px);
+      width: 90px;
+      height: 26px;
+      background-color: rgba(15, 15, 17, 0.92);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transform: rotate(-2deg);
+      z-index: 10;
+      clip-path: polygon(
+        0% 10%, 10% 5%, 25% 15%, 45% 8%, 65% 12%, 85% 4%, 100% 10%,
+        98% 40%, 99% 70%, 97% 100%,
+        85% 92%, 60% 98%, 35% 90%, 15% 96%, 0% 90%,
+        2% 60%, 1% 30%
+      );
+    }
+
+    .plus-stack-dots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      font-family: var(--font-body);
+      font-weight: bold;
+      font-size: 1.05rem;
+      color: rgba(15, 15, 17, 0.65);
+      line-height: 0.9;
+    }
+
+    /* Torn black card under letter F */
+    .letter-f-torn-bg {
+      position: absolute;
+      top: 5%;
+      left: -10%;
+      width: 120%;
+      height: 110%;
+      background-color: var(--text-black);
+      z-index: -1;
+      transform: rotate(-6deg);
+      clip-path: polygon(
+        0% 0%, 25% 4%, 50% 1%, 75% 5%, 100% 0%,
+        98% 30%, 100% 60%, 97% 90%, 99% 100%,
+        75% 97%, 50% 99%, 25% 96%, 0% 100%,
+        2% 70%, 0% 40%, 3% 10%
+      );
+    }
+
+    .letter-f-torn {
+      color: var(--bg-paper-light) !important;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+    }
+
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .home-collage-container {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 5rem;
+      }
+
+      .home-left-rail {
+        display: none;
+      }
+
+      .giant-portfolio-title {
+        align-items: center;
+      }
+
+      .giant-title-row {
+        justify-content: center;
+      }
+
+      .home-intro-panel {
+        align-items: center;
+        text-align: center;
+      }
+
+      .home-intro-footer {
+        justify-content: center;
+      }
+
+      .home-right-collage {
+        order: -1; /* Display right collage first on mobile */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .home-quote-card {
+        padding: 2.2rem 1.6rem;
+      }
+
+      .quote-content {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Moving Film Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Seamless Page Transition Screen -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="header-nav">
+    <a href="index.html" class="branding-logo">
+      <span>PREM</span>
+      <span>SINGH.</span>
+    </a>
+    
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active-link">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="scripts.html">Scripts</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Magnetic Hamburger Menu for Mobile -->
+    <button class="hamburger" aria-label="Toggle Navigation Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Overlay Drawer -->
+  <div class="mobile-nav-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="active-link">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="scripts.html">Scripts</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Hero Screen -->
+  <main class="main-wrapper">
+    <section class="home-hero">
+      
+      <!-- Left Rail with Plus tags -->
+      <div class="home-left-rail">
+        <div class="plus-stack-dots">
+          <span>+</span><span>+</span><span>+</span>
+          <span>+</span><span>+</span><span>+</span>
+          <span>+</span><span>+</span><span>+</span>
+          <span>+</span><span>+</span><span>+</span>
+        </div>
+      </div>
+
+      <!-- Core Content Grid -->
+      <div class="home-collage-container">
+        
+        <!-- Left Editorial Intro Card -->
+        <div class="home-intro-panel">
+          
+          <!-- Stacked centerpiece title PORTFOLIO -->
+          <div class="giant-portfolio-title">
+            <div class="giant-title-row">
+              <span class="giant-letter letter-blue-brush">P</span>
+              <span class="giant-letter letter-pink-circle">O</span>
+              <span class="giant-letter">R</span>
+              <span class="giant-letter letter-blue-brush">T</span>
+            </div>
+            <div class="giant-title-row">
+              <span class="giant-letter letter-f-torn">
+                <div class="letter-f-torn-bg"></div>
+                F
+              </span>
+              <span class="giant-letter letter-blue-star-circle">
+                <svg class="star-overlay" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M50 0 L63 37 L100 50 L63 63 L50 100 L37 63 L0 50 L37 37 Z" />
+                </svg>
+                O
+              </span>
+              <span class="giant-letter letter-pink-rect">L</span>
+              <span class="giant-letter">I</span>
+              <span class="giant-letter letter-o-slash">O</span>
+            </div>
+          </div>
+
+          <!-- White-on-black brush stroke band -->
+          <div class="brush-stroke-under brush-stroke-pink" style="background-color: var(--text-black); color: var(--bg-paper-light); font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; padding: 0.5rem 2rem; transform: rotate(-1.5deg); text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">
+            GRAPHIC DESIGNER & VISUAL STORYTELLER
+          </div>
+
+          <!-- Typewriter paragraph under it -->
+          <p class="courier-intro">
+            I create visuals that connect,<br>
+            tell stories that matter,<br>
+            and leave a lasting <span class="highlight-red-scribble">impression.</span>
+          </p>
+
+          <div class="home-intro-footer">
+            <a href="about.html" class="hero-arrow-link" aria-label="Go to next page">
+              <svg class="arrow-stroke" viewBox="0 0 80 24">
+                <path d="M5 12 h70 M63 4 l12 8 l-12 8" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Layered Collage Quotes Board -->
+        <div class="home-right-collage">
+          
+          <!-- Collage Layers from references -->
+          <div class="collage-blue-circle"></div>
+          <div class="collage-dots"></div>
+          <div class="collage-line-grid"></div>
+          <div class="collage-board-pink"></div>
+          <div class="collage-board-black"></div>
+
+          <!-- Foreground Quote Card -->
+          <div class="home-quote-card">
+            <div class="tape-top-center-black"></div>
+            
+            <div class="quote-content">
+              I DESIGN<br>
+              VISUALS THAT<br>
+              <span class="pink-text">CONNECT ,</span><br>
+              TELL STORIES<br>
+              AND LEAVE A<br>
+              <span class="blue-text">LASTING</span><br>
+              IMPRESSION.
+              
+              <div style="width: 130px; height: 10px; background-color: var(--text-black); margin-top: 1.2rem; clip-path: polygon(0% 40%, 100% 0%, 95% 100%, 5% 80%);"></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="assets-data.js"></script>
+  <script src="global.js"></script>
+</body>
+</html>

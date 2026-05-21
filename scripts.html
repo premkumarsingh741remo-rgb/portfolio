@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Screenplays & Scripts | Prem Singh</title>
+  <meta name="description" content="Read original screenplays and short film scripts written by Prem Singh. Explore drafts for Milo, Glass Keeper, Shurix, and Harmonia in retro screenplay format.">
+  
+  <link rel="stylesheet" href="global.css">
+  <style>
+    /* Unique Scripts Page Layout Styles */
+    .scripts-section {
+      padding: 2rem 0;
+    }
+
+    .scripts-layout {
+      display: grid;
+      grid-template-columns: 0.3fr 0.7fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* Left Sidebar: Typewriter Filters */
+    .scripts-sidebar {
+      position: sticky;
+      top: 130px;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .scripts-sidebar h1 {
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      line-height: 0.8;
+      color: var(--text-black);
+    }
+
+    .scripts-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      border-left: 2px solid var(--text-black);
+      padding-left: 1.5rem;
+    }
+
+    .script-category-item {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: rgba(15,15,17,0.5);
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .script-category-item::before {
+      content: '•';
+      opacity: 0;
+      color: var(--hot-pink);
+      transition: var(--transition-fast);
+    }
+
+    .script-category-item:hover,
+    .script-category-item.active-category {
+      color: var(--text-black);
+    }
+
+    .script-category-item.active-category::before {
+      opacity: 1;
+    }
+
+    /* Right Side: 4 Premium Notebook Cards */
+    .scripts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .script-card {
+      background-color: var(--bg-paper-light);
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 4px 10px 30px rgba(0, 0, 0, 0.05);
+      padding: 3rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: var(--transition-smooth);
+    }
+
+    /* Pinned metal paper clip element */
+    .paper-clip {
+      position: absolute;
+      top: -15px;
+      left: 40px;
+      width: 30px;
+      height: 50px;
+      background: linear-gradient(135deg, #bbb, #888);
+      border: 2px solid #555;
+      border-radius: 15px;
+      opacity: 0.85;
+      z-index: 10;
+      box-shadow: 2px 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .paper-clip::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 4px;
+      width: 14px;
+      height: 32px;
+      border: 2px solid #666;
+      border-radius: 10px;
+      border-bottom: none;
+    }
+
+    .script-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      border-bottom: 2px solid var(--text-black);
+      padding-bottom: 1rem;
+    }
+
+    .script-card-title {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-black);
+      letter-spacing: -0.02em;
+    }
+
+    .script-page-stamp {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: transparent;
+      border: 2px solid var(--hot-pink);
+      color: var(--hot-pink);
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 0.3rem 0.8rem;
+      transform: rotate(5deg) skewX(-5deg);
+      user-select: none;
+      box-shadow: 2px 2px 0 rgba(255, 0, 127, 0.15);
+    }
+
+    .script-card-desc {
+      font-size: 1.05rem;
+      color: rgba(15,15,17,0.8);
+      line-height: 1.45;
+    }
+
+    /* Cinematic Script Screenplay Text Preview */
+    .screenplay-preview-container {
+      background-color: #faf9f6;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-left: 3px double rgba(0,0,0,0.2);
+      padding: 1.8rem;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #333;
+      white-space: pre-wrap;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);
+      position: relative;
+    }
+
+    /* Screenplay custom scrollbar */
+    .screenplay-preview-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .screenplay-preview-container::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.02);
+    }
+    .screenplay-preview-container::-webkit-scrollbar-thumb {
+      background: rgba(15,15,17,0.15);
+      border-radius: 3px;
+    }
+
+    .screenplay-preview-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: rgba(15,15,17,0.4);
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px dashed rgba(0,0,0,0.08);
+      padding-bottom: 0.3rem;
+    }
+
+    /* Action bar linking to raw PDF files */
+    .script-actions {
+      display: flex;
+      justify-content: flex-start;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    /* Responsive scripts page */
+    @media (max-width: 1024px) {
+      .scripts-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .scripts-sidebar {
+        position: relative;
+        top: 0;
+        gap: 2rem;
+      }
+
+      .scripts-nav-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-left: none;
+        border-bottom: 2px solid var(--text-black);
+        padding-left: 0;
+        padding-bottom: 1.2rem;
+        gap: 1rem 2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .script-card {
+        padding: 2rem 1.5rem;
+      }
+      
+      .script-card-title {
+        font-size: 1.7rem;
+      }
+      
+      .script-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .script-actions .btn-creative {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Moving Film Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Seamless Page Transition Screen -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="header-nav">
+    <a href="index.html" class="branding-logo">
+      <span>PREM</span>
+      <span>SINGH.</span>
+    </a>
+    
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="scripts.html" class="active-link">Scripts</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Mobile Hamburger Menu Button -->
+    <button class="hamburger" aria-label="Toggle Navigation Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Overlay Drawer -->
+  <div class="mobile-nav-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="scripts.html" class="active-link">Scripts</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Main scripts Section -->
+  <main class="main-wrapper scripts-section">
+    <div class="scripts-layout">
+      
+      <!-- Left Sidebar Sidebar with vintage typewriter navigation links -->
+      <aside class="scripts-sidebar">
+        <div>
+          <div class="handwritten-annotation" style="color: var(--electric-blue); font-size: 1.5rem; margin-bottom: 0.5rem; transform: rotate(-3deg);">
+            "cinematic screenplay drafts..."
+          </div>
+          <h1>WRITTEN <br><span class="highlight-pink brush-stroke-under brush-stroke-pink">WORDS</span></h1>
+        </div>
+
+        <ul class="scripts-nav-list">
+          <li class="script-category-item active-category" data-filter="all">All Scripts</li>
+          <li class="script-category-item" data-filter="Short Films">Short Films</li>
+          <li class="script-category-item" data-filter="Storyboards">Storyboards</li>
+          <li class="script-category-item" data-filter="Experimental">Experimental</li>
+        </ul>
+      </aside>
+
+      <!-- Right Side Screenplays list -->
+      <div class="scripts-grid" id="scriptsGrid">
+        <!-- Injected Dynamically by scripts-engine -->
+      </div>
+
+    </div>
+  </main>
+
+  <script src="assets-data.js"></script>
+  <script src="global.js"></script>
+  <script>
+    // Scripts Page Rendering Engine
+    document.addEventListener("DOMContentLoaded", () => {
+      const grid = document.getElementById("scriptsGrid");
+      const items = document.querySelectorAll(".script-category-item");
+
+      // Initial load
+      renderScripts("all");
+
+      // Dynamic Filter triggers
+      items.forEach(item => {
+        item.addEventListener("click", () => {
+          if (item.classList.contains("active-category")) return;
+
+          // Toggle highlight categories
+          items.forEach(i => i.classList.remove("active-category"));
+          item.classList.add("active-category");
+
+          // Play smooth filter layout shift animation
+          grid.classList.add("fade-out");
+
+          setTimeout(() => {
+            renderScripts(item.dataset.filter);
+            grid.classList.remove("fade-out");
+          }, 300);
+        });
+      });
+
+      // Filter and render
+      function renderScripts(filter) {
+        grid.innerHTML = "";
+        
+        const rawScripts = PORTFOLIO_ASSETS.scripts || [];
+        const filtered = filter === "all" 
+          ? rawScripts 
+          : rawScripts.filter(s => s.category === filter);
+
+        filtered.forEach(script => {
+          const card = document.createElement("div");
+          card.className = "script-card float-effect-delayed";
+          
+          card.innerHTML = `
+            <div class="paper-clip"></div>
+            <div class="script-card-header">
+              <h2 class="script-card-title">${script.title}</h2>
+              <div class="script-page-stamp">${script.pageCount} PAGES</div>
+            </div>
+            
+            <p class="script-card-desc">${script.description}</p>
+            
+            <div class="screenplay-preview-container">
+              <div class="screenplay-preview-header">Screenplay Excerpt Preview</div>
+              <div>${script.excerpt}</div>
+            </div>
+
+            <div class="script-actions">
+              <a href="${script.filePath}" target="_blank" class="btn-creative magnetic-btn">
+                READ SCRIPT ↗
+              </a>
+              <a href="${script.filePath}" download class="btn-creative magnetic-btn" style="background-color: transparent; color: var(--text-black); border-color: var(--text-black);">
+                DOWNLOAD PDF ⤓
+              </a>
+            </div>
+          `;
+          
+          grid.appendChild(card);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
